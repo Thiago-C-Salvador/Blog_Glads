@@ -1,0 +1,34 @@
+<div class="card bg-dark" style="margin-top: 3em">
+    <div class="card-body text-white">
+        <h3 class="h3 fw-bold text-info">Nova Categoria</h3>  
+        <form action="/admin/categorias/criacao" method="POST">
+            <label for="id_nome">Name:</label>
+            <input type="text" id="id_nome" name="nome" class="form-control mb-2"  onkeypress="lengthMax()">
+            <label for=" id_slug">Slug:</label>
+            <input type="text" id="id_slug" name="slug" class="form-control mb-2" placeholder="Ex.: front-end / back-end / templates " onkeypress="lengthMax()">
+            {{#each erros}}
+                <div class="alert alert-danger mt-3">{{text}}</div> 
+            {{/each}}
+            {{>_msg}}
+            <button type="submit" id="id_btn" class="btn btn-success mt-2 hover-text-button">Criar categoria</button>
+        </form>
+    </div>
+</div>
+
+
+<script type="text/javascript" type="module">
+    
+    import  { maxLength, inputWhite } from "/static/public/js/rules.js"
+    const name = document.querySelector("#id_nome")
+    const slug = document.querySelector("#id_slug")
+    const btn = document.querySelector("#id_btn")
+    maxLength(name, 50);
+    maxLength(slug, 15);
+
+    btn.addEventListener("click", () => 
+    { 
+        if(inputWhite(name, "É preciso informar um nome.")) event.preventDefault();
+        if(inputWhite(slug, "Definea um slug para a categoria.")) event.preventDefault();
+    })  
+
+</script>

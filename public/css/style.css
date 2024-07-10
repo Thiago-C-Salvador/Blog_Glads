@@ -1,0 +1,128 @@
+
+/* .adjust-form-login
+{
+    height: calc(100vh - 80px);
+} */
+
+html, body
+{
+    height: 100%;
+}
+
+.form-content
+{
+    max-width: 350px; 
+    padding:1rem;
+}
+
+/* arrow image back */
+#id_div-img-back
+{
+    fill:#0fbfda;
+    width: 35px;
+    cursor: pointer;
+    transition: fill 0.7s !important;
+}
+
+#id_div-img-back:hover
+{
+    fill: #a0d;
+}
+
+.img-svg-avatar
+{
+    width: 35px;
+}
+/* end arrow image back */
+
+
+/* alter color links*/
+.alter_color_link
+{
+    color: rgb(223, 238, 22);
+}
+
+.alter_color_link:hover
+{
+    color: #24d;
+}
+/* end alter color link */
+
+/* hover button */
+.hover-text-button:hover
+{
+    font-weight: 600;
+}
+/* end hover button */
+
+/* Input of form for access login, create new account, recorevy pass */
+.input-form-access
+{
+    border: none;
+    outline: none;
+    border-radius: 5px;
+    padding: 6px 12px;
+} 
+
+.pass
+{
+    border-radius: 5px 0px 0px 5px;
+    padding: 6px 12px;
+} 
+
+.show-pass
+{
+    cursor: pointer;
+    background-color: #fff;
+    width: 2em; display:flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 0px 5px 5px 0px;
+}
+/* end Input of form for access login, create new account, recorevy pass */
+
+
+/******************************************************************/
+
+/* .form-floating input[type="password"]
+{
+    padding-right: 60px;
+} */
+
+/* .dropdown-item
+{
+    color: #fff;
+} */
+
+
+/* menu suspeno */
+/*
+.dropdown .dropdown-menu
+{
+    display: none;
+    background-color: #212529;
+}
+
+.dropdown:hover > .dropdown-menu,
+.dropend:hover >.dropdown-menu
+{
+    display: block;
+    margin-top: 0.1em;
+    margin-left: 0.1em;
+}
+
+
+@media screen and (min-width: 1000px)
+{
+        .dropend:hover > .dropdown-menu
+        {
+            position: absolute;
+            top: 0;
+            left: 100%;
+        }
+        .dropend .dropdown-toggle
+        {
+            margin-left: 0.5em;
+        }
+} 
+*/

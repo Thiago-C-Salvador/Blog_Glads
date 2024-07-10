@@ -1,0 +1,36 @@
+<script type="text/javascript">
+    function confirmation()
+    {
+        if( !confirm("Tem certeza que deseja excluir a categoria?"))  event.preventDefault();
+    }
+</script>
+
+<h2 class="display-5">Lista de categorias</h2>
+
+{{#each erros}}
+    <div class="alert alert-danger mt-3">{{text}}</div> 
+{{/each}}
+{{>_msg}}
+
+<a href="/admin/categorias/add"><button class="btn btn-success btn-sm hover-text-button mb-2">Nova Categoria</button></a>
+{{#each categorys}}
+    <div class="card mb-3 bg-dark border-2 border-primary">
+        <div class="card-body text-light d-flex flex-column">
+            <h3 class="h3 fw-bold text-info">{{name}}</h3> 
+            <small>Slug: {{slug}}</small>
+            <small>Data de criação: {{formatDate date}}</small>
+            
+            <div class="d-flex " >
+                <a href="/admin/categorias/editar/{{_id}}"> <button class=" btn btn-success btn-sm mt-2 me-2">Editar categoria</button> </a>
+
+                <form action="/admin/categoria/delete" method="POST">
+                    <input type="hidden" name="id" value="{{_id}}">
+                    <input type="hidden" name="name" value="{{name}}">
+                    <button class=" btn btn-danger btn-sm mt-2" type="submit" onclick="confirmation()">Deletar categoria</button>
+                </form>
+            </div>
+        </div>
+    </div>
+{{else}}
+    <h4>Nenhuma categoria registrada!</h4>
+{{/each}}

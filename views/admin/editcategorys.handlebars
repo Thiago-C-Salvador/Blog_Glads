@@ -1,0 +1,36 @@
+{{#each erros}}
+    <div class="alert alert-danger">{{text}}</div>
+{{else}}
+
+{{/each}}
+<h3>Editar Categoria: </h3>
+<div class="card">
+    <div class="card-body">
+        <form action="/admin/categoria/editada" method="POST">
+            <input type="hidden" name="id" value="{{category._id}}">
+            <label for="id_nome">Nome</label>
+            <input type="text" id="id_nome" name="nome" placeholder="Nome categoria" class="form-control mb-2" value="{{category.name}}" onfocus="lengthMax()">
+            <label for="id_slug">Slug</label>
+            <input type="text" id="id_slug" name="slug" placeholder="Slug categoria" class="form-control" value="{{category.slug}}" onfocus="lengthMax()" required>
+            <br>
+            <button id="id_btn" type="submit" class="btn btn-success" onclick="fieldVerification()">Edite Categoria</button>
+        </form>
+    </div>
+</div>
+
+<script type="text/javascript" type="module">
+    
+    import  { maxLength, inputWhite } from "/static/public/js/rules.js"
+    const name = document.querySelector("#id_nome")
+    const slug = document.querySelector("#id_slug")
+    const btn = document.querySelector("#id_btn")
+    maxLength(name, 50);
+    maxLength(slug, 15);
+
+    btn.addEventListener("click", () => 
+    { 
+        if(inputWhite(name, "É preciso informar um nome.")) event.preventDefault();
+        if(inputWhite(slug, "Defina um slug para a categoria.")) event.preventDefault();
+    })  
+
+</script>

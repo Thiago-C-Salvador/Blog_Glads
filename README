@@ -1,0 +1,28 @@
+Para rodar a aplicação é necessário ter o Node.js, o NPM (no instalador Node.js para windwos já instala o NPM junto).
+
+Com o Node.js e o NPM intalados, basta agora instalar as dependências. Logo, rodar em um terminal a linha de comando "npm install".
+OBS: acesse o repositório em que está a aplicação e então execute a linha de comando
+
+Após os passos supracitados, agora é o momento de criar o servidor para pesistência dos dados. Uma vez que a aplicação tem como SGBD o mongodb e está apto para rodar sobre o mesmo, então crie um banco no mongo atlas ou com o mongo compass(ou por linha de comando). Caso preterir outro SGBD, então será necessário instalar o(s) packege(s) pertinente(s) e realizar a configuração de conexão com o banco de dado no arquivo app.js.
+
+Agora, próximo passo é criar e informar os valores das variáveis de ambiente do arquivo .env
+Pronto!
+
+Aaah! Lembrando que a aplicação não está pronta, está ainda com estilização apenas no esboço, e falta realizar alguma etapas no back-end, como por exemplo: cookies, expiração dos dados de usuário que não validadar a conta.
+
+O que já é capaz de realizar no sistema:
+* Criação de conta;
+* Alteração senha a conta;
+* Recuperação de acesso da conta;
+* Autenticação de acesso;
+* Tratamento de nível de usuário e acesso de rotas;
+* Criar categoria;
+* Editar categoria;
+* Deletar categoria;
+* Criar post;
+* Editar post;
+* Deletar post;
+* Filtrar post por categoria; 
+
+Grato pela sua atenção e leitura do arquivo.
+Obrigado!

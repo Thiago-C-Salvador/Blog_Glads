@@ -1,0 +1,45 @@
+<section class="d-flex align-items-center vh-100 wh-100">
+    <main class="form-content bg-dark w-100 m-auto rounded-3">
+        <div class="d-flex flex-column">
+            <div id="id_div-img-back"></div>
+            <div class="d-flex justify-content-center mb-2">
+                <h1 class="h4 fw-bold text-info text-center me-2">Acesse a sua conta</h1>
+                <img src="/static/public/img/avatar.svg" alt="image avatar" title="image decoration" class="img-svg-avatar">
+            </div>
+        </div>
+        <form action="/user/login" method="POST" class="d-flex flex-column">
+            <div class="mb-2">
+                <input type="text" class="input-form-access w-100" id="id_email" name="email" placeholder="your_email@dominio">
+            </div>
+            <div class="d-flex mb-1">
+                <input type="password" class="input-form-access pass w-100" id="id_password" name="password" placeholder="password">
+                <div class="show-pass">
+                    <img src="/static/public/img/eye-slash.svg" id="id_eye-password">
+                </div>
+            </div>
+            {{#each erros}}
+                <div class="alert alert-danger">{{text}}</div>
+                {{else}}
+            {{/each}}
+
+            {{#if error}}
+                <div class="mt-1 text-center">
+                    <label style="color:#fff;">** {{error}} **</label>
+                </div>
+            {{/if}}
+            
+            {{>_msg}}
+            <div class="form-check text-start my-1 mb-2">
+                <input type="checkbox" class="form-check-input" onload="setcookie()" id="flexCheckDefault" style="cursor: pointer;" name="check">
+                <label class="form-check-label" for="flexCheckDefaultt" style="margin-left: -3px; color: #098deb" >Remember me</label>
+            </div>
+            <button type="submit" class="btn btn-sm btn-info w-100 hover-text-button" style="font-family:cursive; font-size:medium">Logar</button>
+            <div class="d-flex justify-content-between mt-2">
+                <a class="right link-primary" style="font-size: 0.9em;" title="Gerar nova senha" alt="Recuperar senha" href="/user/regain_access" tabindex="0" aria-disabled="true">Esqueci meu password.</a>
+                <a class="right link-primary" style="font-size: 0.9em;" title="Criar nova conta de usuário" alt="Criar conta" href="/user/newUser" tabindex="0" aria-disabled="true">Não possui cadastro?</a>
+            </div>
+        </form>
+    </main> 
+</section>
+
+<script src="/static/public/js/img.js" type="module"></script>

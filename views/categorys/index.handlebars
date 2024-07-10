@@ -1,0 +1,13 @@
+
+<div class="card  m-auto border-primary border-2 border-top-0 " style="width: 40rem;">
+    <div class="d-flex flex-column align-items-center" >
+        {{>_msg}}
+        <h2 class= "display-6" style="margin-bottom: 4px">Fitro categorias</h2>
+        <p class="lead">Escolha um dos assuntos e veja todos os posts referente ao mesmo</p>
+    </div>
+    <div class="    mb-2" style="display: inline-block">
+        {{#each category}}
+            <a href="/category/filter_post_category/{{name}}/{{_id}}" class="btn btn-link"><button class=" bg-dark text-white border-primary border-2 btn btn-darky btn-sm hover-text-button">{{name}}</button></a>   
+        {{/each}}
+    </div>
+</div>

@@ -1,0 +1,171 @@
+{{#each erros}}
+    <div class="alert alert-danger">{{text}}</div>
+    {{else}}
+{{/each}}
+
+{{>_msg}}
+<div class="card bg-dark">
+    <div class="card-body text-white">
+        <h3 class="h3 fw-bold text-info">Nova postagem</h3>
+        <form action="/admin/postagens/criacao" method="POST">
+            <label for="id_titulo">Titulo:</label>
+            <input type="text" id="id_titulo" name="titulo" class="form-control mb-2">
+            <label for=" id_slug">Slug:</label>
+            <input type="text" id="id_slug" name="slug" class="form-control mb-2">
+            <label for="id_decricao">Descrição:</label>
+            <input type="text" id="id_descricao" name="descricao" class="form-control mb-2">
+            <label for="id_conteudo">Conteudo:</label>
+            <textarea id="id_conteudo" name="conteudo" class="form-control mb-2" rows="6"></textarea>
+            <label for="id_categoria">Categoria</label>
+            <select id="id_categoria" name="categoria" class="form-select mb-2">
+                <option value="0">Nenhuma</option>
+                {{#each categorys}}
+                <option value="{{_id}}">{{name}}</option>
+                {{else}}
+                <option value="0">Sem categorias</option>
+                {{/each}}
+            </select>
+            <button id="id_btnCreate" class="btn btn-success mt-2 me-2 hover-text-button" type="submit">Criar post</button> 
+            <button id="id_btnCancel" class="btn btn-danger mt-2 me-2 hover-text-button" type="button" onclick="history.back()">Cancelar</button>  
+            <button id="id_btnRecovery" class="btn btn-primary mt-2 hover-text-button" type="button" disabled>Recuperar</button>             
+        </form>
+    </div>
+</div>
+
+{{#if error_msg}}
+    <script>
+        session_storage()
+    </script>
+{{/if}}
+
+<script type="text/javascript" type="module">
+    import  { maxLength, inputWhite } from "/static/public/js/rules.js"
+    const title = document.querySelector("#id_titulo")
+    const slug = document.querySelector("#id_slug")
+    const category = document.querySelector("#id_categoria")
+    const descrition = document.querySelector("#id_descricao")
+    const content = document.querySelector("#id_conteudo")
+    const btn_create = document.querySelector("#id_btnCreate")
+    const btn_cancel = document.querySelector("#id_btnCancel")
+    const btn_recovery = document.querySelector("#id_btnRecovery")
+
+    maxLength(title, 50);
+    maxLength(slug,15); 
+    maxLength(descrition, 150);
+    maxLength(content,5000); 
+
+    title.addEventListener("blur", () =>
+    {
+        if(title.value !== "")
+        {
+            sessionStorage.removeItem("title_form")
+            sessionStorage.setItem("title_form", title.value)
+        }
+    })
+
+    slug.addEventListener("blur", () =>
+    {
+        if(slug.value !== "")
+        {
+            sessionStorage.removeItem("slug_form")
+            sessionStorage.setItem("slug_form", slug.value)
+        }
+    })
+
+    descrition.addEventListener("blur", () =>
+    {
+        if(descrition.value !== "")
+        {
+            sessionStorage.removeItem("descrition_form")
+            sessionStorage.setItem("descrition_form", descrition.value)
+        }
+    })
+
+    content.addEventListener("blur", () =>
+    {
+        if(content.value !== "")
+        {
+            sessionStorage.removeItem("content_form")
+            sessionStorage.setItem("content_form", content.value)
+        }
+    })
+
+    category.addEventListener("blur", () =>
+    {
+        if(category.value !== "")
+        {
+            sessionStorage.removeItem("category_form")
+            sessionStorage.setItem("category_form", category.value)
+        }
+    })
+    
+    btn_create.addEventListener("click", () => 
+    { 
+        if(inputWhite(title, "Informe um título para o post.")) event.preventDefault();
+
+        if(title.value.length < 2)
+        {
+            title.setCustomValidity("Título muito curto. Informe um título maior.");
+            title.reportValidity();
+            return event.preventDefault()
+        }  
+
+        if(inputWhite(slug, "Defina um slug para o post.")) event.preventDefault();
+
+        if(inputWhite(descrition, "Insira uma descriçao para o post.")) event.preventDefault();
+
+        if( descrition.value.length < 4 )
+        {
+            descrition.setCustomValidity("Descirção muito curta. Informe uma descrição com ao menos 5 letras");
+            descrition.reportValidity();
+            return event.preventDefault()
+        }
+
+         if( content.value == "" )
+        {
+            conteudo.setCustomValidity("Insira o texto do post para poder prosseguir");
+            conteudo.reportValidity();
+            return event.preventDefault();
+        }
+        else if( content.value.length < 80 )
+        {
+            content.setCustomValidity("Texto muito curto");
+            content.reportValidity();
+            return event.preventDefault();
+        }
+
+        if(inputWhite(category, "Selecione um categoria, caso exista.")) event.preventDefault();
+    }) 
+
+    category.addEventListener("change", () => category.setCustomValidity(""));
+    
+    // Habilitar o botão que permite recuperar os valores do sessionStorage em seus rescpectivos campos
+    if(sessionStorage.getItem("title_form") !== null || 
+    sessionStorage.getItem("slug_form") !== null || 
+    sessionStorage.getItem("descrition_form") !== null ||
+    sessionStorage.getItem("content_form") !== null ||
+    sessionStorage.getItem("category_form") !== null) {btn_recovery.removeAttribute("disabled")} else {btn_recovery.setAttribute("disabled","disabled")}
+    
+    // Ação para recuperar os valores de cada campo caso deseje
+    btn_recovery.addEventListener ("click", () =>
+    {
+        session_storage()
+    })
+
+    // Função para insrir os registros para dentro de cada input
+    function session_storage()
+    {
+        //código comentado
+        {{!-- if( sessionStorage.getItem("title_form") !== null ) title.value = sessionStorage.getItem("title_form");
+        if( sessionStorage.getItem("slug_form") !== null ) slug.value = sessionStorage.getItem("slug_form");
+        if( sessionStorage.getItem("descrition_form") !== null ) descrition.value = sessionStorage.getItem("descrition_form");
+        if( sessionStorage.getItem("content_form") !== null ) content.value = sessionStorage.getItem("content_form");
+        if( sessionStorage.getItem("category_form") !== null ) category.value = sessionStorage.getItem("category_form"); --}}
+        /**********************************************************************************************************************/
+        if( sessionStorage.getItem("title_form") !== null ) document.querySelector("#id_titulo").value = sessionStorage.getItem("title_form");
+        if( sessionStorage.getItem("slug_form") !== null ) document.querySelector("#id_slug").value = sessionStorage.getItem("slug_form");
+        if( sessionStorage.getItem("descrition_form") !== null ) document.querySelector("#id_descricao").value = sessionStorage.getItem("descrition_form");
+        if( sessionStorage.getItem("content_form") !== null ) document.querySelector("#id_conteudo").value = sessionStorage.getItem("content_form");
+        if( sessionStorage.getItem("category_form") !== null ) document.querySelector("#id_categoria").value = sessionStorage.getItem("category_form");
+    }
+</script>

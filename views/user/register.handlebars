@@ -1,0 +1,84 @@
+{{#if success_msg}}
+    <script>
+        sessionStorage.removeItem("name_form_create")
+        sessionStorage.removeItem("email_form_create")
+    </script>
+{{/if}}
+
+<section class="d-flex align-items-center vh-100 wh-100">
+    <main class="form-content bg-dark w-100 m-auto rounded-3">
+        <div class="d-flex flex-column">
+            <div id="id_div-img-back"></div>
+            <div class="d-flex justify-content-center mb-2">
+                <h1 class="h4 fw-bold text-info text-center me-2">Crie a sua conta</h1>
+                <img src="/static/public/img/avatar.svg" alt="image avatar" title="image decoration" class="img-svg-avatar">
+            </div>
+        </div>
+        <form action="/user/registro" method="POST" class="d-flex flex-column ">
+
+            <div class="mb-2">
+                <input type="text" class="input-form-access w-100" id="id_name" name="nome" placeholder="your name">
+            </div>
+            
+            <div class="mb-2">
+                <input type="email" class="input-form-access w-100" id="id_email" name="email" placeholder="your_email@dominio">
+            </div>
+
+            <div class="d-flex mb-2">
+                <input type="password" class="input-form-access pass w-100" id="id_password" name="password" placeholder="password">
+                <div class="show-pass">
+                    <img src="/static/public/img/eye-slash.svg" id="id_eye-password">
+                </div>
+            </div>
+             <div class="d-flex mb-2">
+                <input type="password" class="input-form-access w-100" id="id_confirmPassword" name="confirmPassword" placeholder="confirm password">
+            </div>
+            {{#if admin}}
+            <div class="form-check d-flex justify-content-center mb-1">
+                <input type="checkbox" class="form-check-input mx-1" id="flexCheckDefault" name="check">
+                <label class="form-check-label text-info mx-1" for="flexCheckDefaultt">Como "administrador"</label>
+            </div>
+            {{/if}}
+
+            {{#each erros}}
+                <div class="alert alert-danger">{{text}}</div>
+                {{else}}
+            {{/each}}
+
+            {{>_msg}}
+            <button type="submit" class="btn btn-sm btn-info w-100 hover-text-button" style="font-family:cursive; font-size:medium">Criar</button>
+        </form>
+    </main>
+</section>
+
+{{#if error_msg}}
+    <script>
+        if(sessionStorage.getItem("name_form_create") !== null) document.querySelector("#id_name").value = sessionStorage.getItem("name_form_create")
+        if(sessionStorage.getItem("email_form_create") !== null) document.querySelector("#id_email").value = sessionStorage.getItem("email_form_create")
+    </script>
+{{else}}
+    {{#if erros}}
+    <script>
+        if(sessionStorage.getItem("name_form_create") !== null) document.querySelector("#id_name").value = sessionStorage.getItem("name_form_create")
+        if(sessionStorage.getItem("email_form_create") !== null) document.querySelector("#id_email").value = sessionStorage.getItem("email_form_create")
+    </script>
+    {{/if}}
+{{/if}}
+
+<script type="text/javascript" src="/static/public/js/rules.js"></script>
+<script type="text/javascript" src="/static/public/js/img.js" type="module"></script>
+<script type="text/javascript">
+    const name = document.querySelector("#id_name")
+    const email = document.querySelector("#id_email")
+
+    name.onblur= () =>
+    {
+        sessionStorage.setItem("name_form_create", name.value)
+    }
+
+    email.onblur = () =>
+    {
+        sessionStorage.setItem("email_form_create", email.value)
+    }
+
+</script>

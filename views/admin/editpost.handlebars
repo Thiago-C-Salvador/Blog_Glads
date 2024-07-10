@@ -1,0 +1,84 @@
+{{#each erros}}
+    <div class="alert alert-danger">{{text}}</div> 
+    {{else}}
+{{/each}}
+{{>_msg}}
+<div class="card bg-dark">
+    <div class="card-body text-white">
+        <h3 class="h3 fw-bold text-info">Editar Post</h3>
+        <form action="/admin/post/editado" method="POST">   
+            <input type="hidden" name="id" value="{{post._id}}">
+            <label for="id_titulo">Titulo:</label>
+            <input type="text" id="id_titulo" name="titulo" class="form-control mb-2" value="{{post.title}}">
+            <label for=" id_slug">Slug:</label>
+            <input type="text" id="id_slug" name="slug" class="form-control mb-2" value="{{post.slug}}">
+            <label for="id_decricao">Descrição:</label>
+            <input type="text" id="id_descricao" name="descricao" class="form-control mb-2" value="{{post.description}}">
+            <label for="id_conteudo">Conteudo:</label>
+            <textarea id="id_conteudo" name="conteudo" class="form-control mb-2" rows="8">{{post.content}}</textarea>
+            <label for="id_categoria">Categoria</label>
+            <select id="id_categoria" name="categoria" class="form-select mb-4" required>
+                {{!-- <option value="{{post.category.id}}">{{post.category.name}}</option> --}}
+                {{#each categorys}}
+                 {{!-- <option value="{{_id}}">{{name}}</option> --}}
+                 <option value="{{_id}}" {{#idOptionsSelect _id ../post.category._id}} selected {{/idOptionsSelect}}>{{name}}</option>
+                {{else}}
+                <option value="0">Sem categorias</option>
+                {{/each}}
+            </select>
+            <button id="id_btnConfirm" class="btn btn-success me-2" type="submit">Confirma edição</button>
+            <butto id="id_btnCancel" type="button" class="btn btn-danger" role="button" onclick="history.back()">Cancelar edição</button>
+        </form>
+    </div>
+</div>
+
+<script type="text/javascript" type="module">
+    import  { maxLength, inputWhite } from "/static/public/js/rules.js"
+    const titulo = document.querySelector("#id_titulo")
+    const slug = document.querySelector("#id_slug")
+    const descricao = document.querySelector("#id_descricao")
+    const conteudo = document.querySelector("#id_conteudo")
+    const btn_confirm = document.querySelector("#id_btnConfirm")
+    const btn_cancel = document.querySelector("#id_btnCancel")
+
+    maxLength(titulo, 50);
+    maxLength(slug,15); 
+    maxLength(descricao, 150);
+    maxLength(conteudo,5000); 
+
+    btn_confirm.addEventListener("click", () => 
+    { 
+        if(inputWhite(titulo, "Informe um título para o post.")) event.preventDefault();
+
+        if(titulo.value.length < 2)
+        {
+            titulo.setCustomValidity("Título muito curto. Informe um título maior.");
+            titulo.reportValidity();
+            return event.preventDefault()
+        }  
+
+        if(inputWhite(slug, "Defina um slug para o post.")) event.preventDefault();
+
+        if(inputWhite(descricao, "Insira uma descriçao para o post.")) event.preventDefault();
+
+        if( descricao.value.length < 4 )
+        {
+            descricao.setCustomValidity("Descirção muito curta. Informe uma descrição com ao menos 5 letras");
+            descricao.reportValidity();
+            return event.preventDefault()
+        }
+
+         if( conteudo.value == "" )
+        {
+            conteudo.setCustomValidity("Insira o texto do post para poder prosseguir");
+            conteudo.reportValidity();
+            return event.preventDefault();
+        }
+        else if( conteudo.value.length < 80 )
+        {
+            conteudo.setCustomValidity("Texto muito curto");
+            conteudo.reportValidity();
+            return event.preventDefault();
+        }
+    })        
+</script>

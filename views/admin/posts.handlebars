@@ -1,0 +1,46 @@
+<script>
+    function confirmation()
+    {
+        if( !confirm("Tem certeza que deseja excluir o post?"))  event.preventDefault();
+    }
+</script>
+
+{{#if success_msg}}
+    <script>
+        sessionStorage.removeItem("title_form")
+        sessionStorage.removeItem("slug_form") 
+        sessionStorage.removeItem("descrition_form")
+        sessionStorage.removeItem("content_form")
+        sessionStorage.removeItem("category_form")
+    </script>
+{{/if}}
+
+{{>_msg}}
+<h2 class="display-5" class="h3 fw-bold text-info">Lista de posts</h2>
+<a href="/admin/postagens/add"><button class=" btn btn-success btn-sm mb-2">Novo Post</button></a>
+
+{{#each post}}
+    <div class="card mb-3 bg-dark border-2 border-primary">
+        <div class="card-body text-light d-flex flex-column">
+            <h3 class="h3 fw-bold text-info">{{title}}</h3> 
+            <p><span class="text-uppercase">Slug:</span><br>{{slug}}</p>
+            <p><span class="text-uppercase">Descrição:</span><br>{{description}}</p>
+            <p><span class="text-uppercase">Conteúdo:</span><br>{{content}}</p>
+            <p>
+               <small title="Todos post da categoria">Categoria: <a href="/category/filter_post_category/{{category.name}}/{{category._id}}" role="link" class="alter_color_link" >{{category.name}}</a></small> | <small>Data de postagem: {{formatDate date}}</small>
+            </p>
+            <div class="d-flex">
+                <a href="/admin/posts/editar/{{_id}}"> <button class=" btn btn-success btn-sm mt-2 me-2">Editar post</button> </a>
+
+                <form action="/admin/post/delete" method="POST">
+                    <input type="hidden" name="id" value="{{_id}}">
+                    <button class=" btn btn-danger btn-sm mt-2" type="submit" ondblclick="confirmation()">Deletar Post</button>
+                </form>
+
+            </div>
+        </div>
+    </div>
+    <hr class="border-3">
+{{else}}
+     <h4>Não há posts para vizualizar.</h4>
+{{/each}}
