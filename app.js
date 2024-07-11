@@ -34,17 +34,8 @@ app.use(cookieParser());
 //General settings
     //Session                                                          
         app.use( session({ secret: process.env.PASS_SECRET, resave: true, saveUninitialized: true, cookie: {maxAge: 1000 * 60 * 60} }));
-        /*
-            * propriedade "resave" define se session deve ser salva em todas requisições.
-            * propriedade "saveUninitialized" define se até os usários anônimos tabmbém terão session salvas.
-            * propriedade "cookie" define quanto tempo a session ficaram registrados. No caso da aplicação serão 30 minutos.
-        */
-
-        //tem de ser declarado abaixo da inicilização do session 
         app.use(passport.initialize())
         app.use(passport.session())
-
-    //Flash => tem de ficar abaixo da chamada do "session"
         app.use(flash());
 
     //Midleware
@@ -58,17 +49,14 @@ app.use(cookieParser());
             next();
         });
 
-    //Parser do dados da requisição
-        // app.use(bodyParser.urlencoded({extended: true}))
-        // app.use(bodyParser.json())
         app.use(express.urlencoded({extended: true})); 
-        app.use(express.json());//atualmente o expresse já tem seu próprio método de parse de dados em formato JSON
+        app.use(express.json());
 
     //handlebars (sistema de templates)
         app.engine("handlebars", handlebars.engine
         ({ 
             defaultLayout: 'main', 
-            helpers://para costumizar dados exibidos pelo handlebars
+            helpers:
             {
                 //formatar data
                 formatDate: (date) => 
@@ -83,12 +71,6 @@ app.use(cookieParser());
                     v2 = v2._id.toString();
                     return (v1 === v2) ? options.fn(this) : options.inverse(this);
                 },
-
-                // nickName: (name) => ** Fiz pelo arquivo "pertinentes" na pasta "helpes" para fins de teste e didático **
-                // {
-                //     fullName = name.split(" ")
-                //     return fullName = fullName[0] 
-                // } 
             }
         }));
         app.set('view engine', 'handlebars'); 

@@ -1,3 +1,4 @@
+const { create } = require("express-handlebars");
 const mongoose = require("mongoose")
 
 const Schema = mongoose.Schema;
@@ -40,5 +41,7 @@ const User = new Schema
         default: 0
     }
 });
+
+
 
 mongoose.model("usuarios", User)

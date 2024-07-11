@@ -5,6 +5,10 @@ OBS: acesse o repositório em que está a aplicação e então execute a linha d
 
 Após os passos supracitados, agora é o momento de criar o servidor para pesistência dos dados. Uma vez que a aplicação tem como SGBD o mongodb e está apto para rodar sobre o mesmo, então crie um banco no mongo atlas ou com o mongo compass(ou por linha de comando). Caso preterir outro SGBD, então será necessário instalar o(s) packege(s) pertinente(s) e realizar a configuração de conexão com o banco de dado no arquivo app.js.
 
+Depois então, abra a aplicação, crie um usuário, o qual terá permissões de administrador dentro da aplicação e, logo após, acesse o banco via IDE ou terminal e altere a propriedade "admin" da collection "usuarios" de 0(zero) para 1.
+Caso via terminal: dê um find no nome do usuario, copie o ID e execute a seguinte um update no mesmo: 
+db.usuarios.updateOne({_id: ObjectId()},{$set:{admin: 1}})
+
 Agora, próximo passo é criar e informar os valores das variáveis de ambiente do arquivo .env
 Pronto!
 

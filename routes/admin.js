@@ -11,6 +11,8 @@ router.get("/categorias", (req, res) =>
     .then((categorys) => { res.render("admin/categorys", {categorys: categorys}) })
     .catch((err) => { req.flash(`erro_msg", "Houve um erro ao carregar categorias. Cod lsCat0001: ${err}`), res.redirect("/admin/categorias") })
 });
+
+
     
 /* GET for add new post*/
 router.get("/categorias/add", (req, res) =>
