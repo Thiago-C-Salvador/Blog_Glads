@@ -9,7 +9,7 @@ Agora, próximo passo é criar e informar os valores das variáveis de ambiente 
 Pronto!
 
 Depois então, abra a aplicação, crie um usuário, o qual terá permissões de administrador dentro da aplicação e, logo após, acesse o banco via IDE ou terminal e altere a propriedade "admin" da collection "usuarios" de 0(zero) para 1.
-Caso via terminal: dê um find no nome do usuario, copie o ID e execute a seguinte um update no mesmo: 
+Caso via terminal: dê um find no nome do usuario, copie o ID e execute um update no mesmo: 
 db.usuarios.updateOne({_id: ObjectId()},{$set:{admin: 1}})
 
 Aaah! Lembrando que a aplicação não está pronta, está ainda com estilização apenas no esboço, e falta realizar alguma etapas no back-end, como por exemplo: cookies, expiração dos dados de usuário que não validadar a conta.
